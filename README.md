@@ -155,3 +155,8 @@ public class SecurityConfig {
 Congratulations! You have successfully enabled HTTPS in your Spring Boot application! Give it a try: run the application, open your browser, visit https://localhost:8443, and check if everything works as it should.
 
 If you're using a self-signed certificate, you will probably get a security warning from the browser and need to authorize it to open the web page anyway.
+
+
+
+
+[Tutorial owner](https://www.thomasvitale.com/https-spring-boot-ssl-certificate/)
