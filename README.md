@@ -61,6 +61,8 @@ At the end of this operation, we'll get a keystore containing a brand new SSL ce
 
 
 ###Verify the keystore content
+
+
 To check the content of the keystore following the JKS format, we can use keytool again:
 
 ```
