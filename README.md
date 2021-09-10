@@ -157,6 +157,43 @@ Congratulations! You have successfully enabled HTTPS in your Spring Boot applica
 If you're using a self-signed certificate, you will probably get a security warning from the browser and need to authorize it to open the web page anyway.
 
 
+#3. Multiple connectors for HTTP and HTTPS
 
+Spring allows defining just one network connector in application.properties (or application.yml). We used it for HTTPS and relied on Spring Security to redirect all HTTP traffic to HTTPS.
+
+What if we need both HTTP and HTTPS connectors in Tomcat and redirect all requests to the second one? We can keep the HTTPS configuration in the application.yml file and we set up the HTTP connector programmatically.
+
+```
+@Configuration
+public class ServerConfig {
+
+  @Bean
+  public ServletWebServerFactory servletContainer() {
+    TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory() {
+      @Override
+      protected void postProcessContext(Context context) {
+        var securityConstraint = new SecurityConstraint();
+        securityConstraint.setUserConstraint("CONFIDENTIAL");
+        var collection = new SecurityCollection();
+        collection.addPattern("/*");
+        securityConstraint.addCollection(collection);
+        context.addConstraint(securityConstraint);
+      }
+    };
+    tomcat.addAdditionalTomcatConnectors(getHttpConnector());
+    return tomcat;
+  }
+
+  private Connector getHttpConnector() {
+    var connector = new Connector(TomcatServletWebServerFactory.DEFAULT_PROTOCOL);
+    connector.setScheme("http");
+    connector.setPort(8080);
+    connector.setSecure(false);
+    connector.setRedirectPort(8443);
+    return connector;
+  }
+
+}
+```
 
 [Tutorial owner](https://www.thomasvitale.com/https-spring-boot-ssl-certificate/)
