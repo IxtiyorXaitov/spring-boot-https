@@ -37,7 +37,7 @@ Let's have a closer look at the command we just run:
 When running the previous command, we will be asked to input some information, but we are free to skip all of it (just press Return to skip an option). When asked if the information is correct, we should type yes. Finally, we hit return to use the keystore password as key password as well.
 
 
-```` 
+````
 What is your first and last name? 
     [Unknown]: 
 What is the name of your organizational unit? 
@@ -108,7 +108,7 @@ Then, we configure the server to use our brand new keystore and enable HTTPS.
 
 To enable HTTPS for our Spring Boot application, let's open our application.yml file (or application.properties) and define the following properties:
 
-```
+```yaml
 server:
   ssl:
     key-store: classpath:keystore.p12
@@ -137,7 +137,7 @@ When using Spring Security, we can configure it to automatically block any reque
 Let's create a SecurityConfig class to gather the security policies and configure the application to require a secure channel for all requests. We can also temporarily authorize all requests so we can focus on testing the HTTPS behaviour rather than the user authentication strategy.
 
 
-```
+```java
 @Configuration
 public class SecurityConfig {
 
@@ -165,7 +165,7 @@ Spring allows defining just one network connector in application.properties (or 
 
 What if we need both HTTP and HTTPS connectors in Tomcat and redirect all requests to the second one? We can keep the HTTPS configuration in the application.yml file and we set up the HTTP connector programmatically.
 
-```
+```java
 @Configuration
 public class ServerConfig {
 
