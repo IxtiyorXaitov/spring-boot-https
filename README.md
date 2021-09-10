@@ -60,7 +60,7 @@ Enter key password for <springboot>
 At the end of this operation, we'll get a keystore containing a brand new SSL certificate.
 
 
-###Verify the keystore content
+### Verify the keystore content
 
 
 To check the content of the keystore following the JKS format, we can use keytool again:
@@ -75,7 +75,7 @@ To test the content of a keystore following the PKCS12 format:
 keytool -list -v -keystore springboot.p12
 ```
 
-###Convert a JKS keystore into PKCS12
+### Convert a JKS keystore into PKCS12
 
 Should we have already a JKS keystore, we have the option to migrate it to PKCS12; keytool has a convenient command for that:
 
@@ -96,7 +96,7 @@ keytool -import -alias springboot -file myCertificate.crt -keystore springboot.p
 To get more information about the keystore and its format, please refer to the previous section.
 
 
-#2. Enable HTTPS in Spring Boot
+# 2. Enable HTTPS in Spring Boot
 
 Whether our keystore contains a self-signed certificate or one issued by a trusted Certificate Authority, we can now set up Spring Boot to accept requests over HTTPS instead of HTTP by using that certificate.
 
@@ -104,7 +104,7 @@ The first thing to do is placing the keystore file inside the Spring Boot projec
 
 Then, we configure the server to use our brand new keystore and enable HTTPS.
 
-###Enable HTTPS in Spring Boot
+### Enable HTTPS in Spring Boot
 
 To enable HTTPS for our Spring Boot application, let's open our application.yml file (or application.properties) and define the following properties:
 
@@ -119,7 +119,7 @@ server:
   port: 8443
 ```
 
-###Configuring SSL in Spring Boot
+### Configuring SSL in Spring Boot
 
 Let's have a closer look at the SSL configuration we have just defined in our Spring Boot application properties.
 
@@ -130,7 +130,7 @@ Let's have a closer look at the SSL configuration we have just defined in our Sp
 * ```server.ssl.key-alias:``` the alias that identifies the key in the key store.
 * ```server.ssl.key-password:``` the password used to access the key in the key store.
 
-###Redirect to HTTPS with Spring Security
+### Redirect to HTTPS with Spring Security
 
 When using Spring Security, we can configure it to automatically block any request coming from a non-secure HTTP channel and redirect them to HTTPS.
 
@@ -159,7 +159,7 @@ Congratulations! You have successfully enabled HTTPS in your Spring Boot applica
 If you're using a self-signed certificate, you will probably get a security warning from the browser and need to authorize it to open the web page anyway.
 
 
-#3. Multiple connectors for HTTP and HTTPS
+# 3. Multiple connectors for HTTP and HTTPS
 
 Spring allows defining just one network connector in application.properties (or application.yml). We used it for HTTPS and relied on Spring Security to redirect all HTTP traffic to HTTPS.
 
